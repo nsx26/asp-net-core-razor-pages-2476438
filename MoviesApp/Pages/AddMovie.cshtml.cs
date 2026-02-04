@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MoviesApp.Data.Models;
 
 namespace MoviesApp.Pages
 {
     public class AddMovieModel : PageModel
     {
         [BindProperty]
-        public required string Title { get; set; }
+        public Movie Movie { get; set; }
 
-        [BindProperty]
-        public required string Description { get; set; }
-
-        [BindProperty]
-        public int Rate { get; set; }
+        public void OnGetMyOnClick()
+        {
+            // TODO:
+        }
 
         public void OnGet()
         {
@@ -20,7 +20,7 @@ namespace MoviesApp.Pages
 
         public IActionResult OnPost()
         {
-            string value = $"{Title} - {Description} - {Rate}";
+            string value = $"{Movie.Title} - {Movie.Description} - {Movie.Rate}";
 
             return Page();
         }
