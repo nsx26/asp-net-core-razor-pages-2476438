@@ -67,7 +67,6 @@ $.extend( $.fn, {
 					// Prevent form submit to be able to see console output
 					event.preventDefault();
 				}
-
 				function handle() {
 					var hidden, result;
 

@@ -277,7 +277,6 @@
       }
     }, emulatedDuration);
   };
-
   /**
    * Return the previous/next element of a list.
    *
