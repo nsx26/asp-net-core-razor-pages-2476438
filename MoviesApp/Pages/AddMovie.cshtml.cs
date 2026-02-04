@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MoviesApp.Data;
 using MoviesApp.Data.Models;
 using MoviesApp.Services;
 
 namespace MoviesApp.Pages
 {
+    [Authorize(Roles = "Admin", Policy = "over18")]
     public class AddMovieModel(IMoviesService moviesService) : PageModel
     {
         [BindProperty]

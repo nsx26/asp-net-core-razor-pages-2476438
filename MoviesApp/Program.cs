@@ -1,9 +1,28 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login"; // redirct on page requiring auth when no logged in
+        options.AccessDeniedPath = "/Denied"; // redirect on page requiring auth they can't access
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    // user must be 18 or over
+    options.AddPolicy("over18", policy => 
+        policy.RequireAssertion(context =>
+        {
+            var ageClaim = context.User.FindFirst("Age");
+            return ageClaim != null && int.TryParse(ageClaim.Value, out int age) && age >= 18;
+        }));
+});
 
 builder.Services.AddDbContext<MoviesApp.Data.MoviesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
