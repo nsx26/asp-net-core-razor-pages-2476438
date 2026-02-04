@@ -11,7 +11,7 @@ namespace MoviesApp.Pages
 
         public void OnGetMyOnClick()
         {
-            // TODO:
+            
         }
 
         public void OnGet()
@@ -20,9 +20,14 @@ namespace MoviesApp.Pages
 
         public IActionResult OnPost()
         {
-            string value = $"{Movie.Title} - {Movie.Description} - {Movie.Rate}";
+            string value = $"{Movie.Title} - {Movie.Rate} - {Movie.Description}";
 
-            return Page();
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            return Redirect("Movies");
         }
     }
 }
