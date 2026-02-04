@@ -16,7 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization(options =>
 {
     // user must be 18 or over
-    options.AddPolicy("over18", policy => 
+    options.AddPolicy("over18", policy =>
         policy.RequireAssertion(context =>
         {
             var ageClaim = context.User.FindFirst("Age");

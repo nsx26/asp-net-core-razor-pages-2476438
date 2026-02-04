@@ -8,7 +8,7 @@ namespace MoviesApp.Pages
     public class MovieModel(IMoviesService moviesService) : PageModel
     {
         [BindProperty]
-        public Movie? Movie {  get; set; }
+        public Movie? Movie { get; set; }
 
         public async Task<IActionResult> OnGet(int id)
         {

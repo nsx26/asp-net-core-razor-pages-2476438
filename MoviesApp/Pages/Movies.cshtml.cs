@@ -11,6 +11,6 @@ namespace MoviesApp.Pages
         public async Task OnGetAsync()
         {
             Movies = await moviesService.GetAll();
-        }         
+        }
     }
 }

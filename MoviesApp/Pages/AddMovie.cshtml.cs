@@ -10,11 +10,11 @@ namespace MoviesApp.Pages
     public class AddMovieModel(IMoviesService moviesService) : PageModel
     {
         [BindProperty]
-        public Movie Movie { get; set; }
+        public required Movie Movie { get; set; }
 
         public void OnGetMyOnClick()
         {
-            
+
         }
 
         public void OnGet()
