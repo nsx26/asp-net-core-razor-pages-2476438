@@ -2,20 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MoviesApp.Data;
 using MoviesApp.Data.Models;
+using MoviesApp.Services;
 
 namespace MoviesApp.Pages
 {
-    public class AddMovieModel : PageModel
+    public class AddMovieModel(IMoviesService moviesService) : PageModel
     {
         [BindProperty]
         public Movie Movie { get; set; }
-
-        private MoviesDbContext _context;
-
-        public AddMovieModel(MoviesDbContext context)
-        {
-            _context = context;
-        }
 
         public void OnGetMyOnClick()
         {
@@ -26,7 +20,7 @@ namespace MoviesApp.Pages
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             string value = $"{Movie.Title} - {Movie.Rate} - {Movie.Description}";
 
@@ -35,15 +29,12 @@ namespace MoviesApp.Pages
                 return Page();
             }
 
-            var movie = new Movie()
+            await moviesService.Add(new Movie()
             {
                 Title = Movie.Title,
                 Rate = Movie.Rate,
                 Description = Movie.Description
-            };
-
-            _context.Movies.Add(movie);
-            _context.SaveChanges();
+            });
 
             return Redirect("Movies");
         }

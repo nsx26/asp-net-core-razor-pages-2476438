@@ -8,6 +8,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<MoviesApp.Data.MoviesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 
+builder.Services.AddScoped<MoviesApp.Services.IMoviesService, MoviesApp.Services.MoviesService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
